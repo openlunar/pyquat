@@ -11,19 +11,18 @@ import pyquat as pq
 from math import sqrt, cos, sin, pi
 import numpy as np
 
-def randu(symmetric_range = 1.0):
+
+def randu(symmetric_range=1.0):
     """
     Generate a uniform random number with mean 0 and range
     (-symmetric_range, +symmetric_range).  Default argument (1.0)
     gives mean 0 and range (-1, 1).
     """
-    
     return (np.random.rand() * 2.0 - 1.0) * symmetric_range
 
-def uniform_random_axis(max_theta = 2.0 * pi, z_range = 1.0):
-    """
-    Generate a unit random axis from a uniform distribution.
-    """
+
+def uniform_random_axis(max_theta=2.0 * pi, z_range=1.0):
+    """Generate a unit random axis from a uniform distribution."""
     if max_theta == 0.0:
         theta = 0.0
     else:
@@ -55,11 +54,9 @@ def rand(
 
     """
     if axis is not None and angle is not None:
-        raise StandardError("expected non-fixed angle or non-fixed axis or both")
+        raise Exception("expected non-fixed angle or non-fixed axis or both")
     if axis is None:
         axis  = axis_generator(**axis_generator_kwargs)
     if angle is None:
         angle = angle_generator()
     return pq.Quat.from_angle_axis(angle, *axis)
-
-

@@ -2,6 +2,7 @@
 
 pyquat is a Python C extension providing quaternions and functions relating to simulation of attitudes and rotations.
 
+![build schtatus](https://github.com/openlunar/pyquat/workflows/Python%20application/badge.svg)
 [![Build Status](https://travis-ci.org/mohawkjohn/pyquat.svg?branch=master)](https://travis-ci.org/mohawkjohn/pyquat)
 
 ## Installation

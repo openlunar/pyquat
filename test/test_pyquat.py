@@ -4,7 +4,8 @@ from test.assertions import QuaternionTest
 import math
 import unittest
 
-from .context import pq
+# from .context import pq
+import pyquat as pq
 
 PLOT = False
 
@@ -190,7 +191,7 @@ class TestPyquat(QuaternionTest):
         q0 = pq.Quat(1.0, 0.0, 0.0, 0.0)
         w0 = np.array([[3.0, 2.0, 1.0]]).T
         q1 = pq.propagate(q0, w0, dt)
-        phi1 = q1.to_rotation_vector()
+        # phi1 = q1.to_rotation_vector()
         phi2 = w0 * dt
         q2   = pq.from_rotation_vector(phi2)
         self.assert_almost_equal(q1, q2, decimal=6)
@@ -257,9 +258,9 @@ class TestPyquat(QuaternionTest):
         B1    = 13/51.0
         dt    = 0.05
         w     = np.array([[0.03, 0.02, 0.01]]).T
-        J     = np.diag([200.0, 200.0, 100.0])
-        J_inv = linalg.inv(J)
-        wk1   = pq.wdot(w, J)
+        # J     = np.diag([200.0, 200.0, 100.0])
+        # J_inv = linalg.inv(J)
+        # wk1   = pq.wdot(w, J)
         qk1   = pq.state_transition_matrix(w)
         expm1 = pq.expm(w, dt * B1)
         expm2 = linalg.expm(qk1 * (B1 * dt))
@@ -446,7 +447,7 @@ class TestPyquat(QuaternionTest):
         """slerp should resort to lerp when a lerp_threshold is set"""
         q1  = pq.Quat(1.0, 0.0, 0.0, 0.0)
         q2  = pq.Quat(1.0, 0.1, 0.0, 0.0).normalized()
-        dot = q1.dot(q2)
+        # dot = q1.dot(q2)
 
         lerp  = q1.lerp(q2, 0.5).normalized()
         slerp = q1.slerp(q2, 0.5)

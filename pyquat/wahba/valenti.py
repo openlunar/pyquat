@@ -8,15 +8,10 @@ Reference:
 
 """
 
-import numpy as np
-from math import sqrt
-
 from pyquat import valenti_q_mag as q_mag
 from pyquat import valenti_q_acc as q_acc
-from pyquat import valenti_dq_mag as dq_mag
-from pyquat import valenti_dq_acc as dq_acc
-    
-    
+
+
 def q_global_to_local(a, b):
     """Compute a global to local transformation using a relatively
     low-noise measurement a (e.g. from an accelerometer) and a

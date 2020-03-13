@@ -13,7 +13,7 @@ Reference:
 
 import numpy as np
 from scipy import linalg
-from math import sqrt, pi, cos, acos
+from math import sqrt, cos, acos
 
 def trace_adj(a):
     if max(a.shape) == 3:
@@ -219,11 +219,6 @@ def davenport_eigenvalues(K = None, B = None, tr_B = None, tr_adj_K = None, tr_K
     tr_adj_S = trace_adj_symm(S)
     if z is None:
         z = K[1:4,0].reshape((3,1))
-
-    if tr_K is None:
-        a = np.trace(K)
-    else:
-        a = tr_K
         
     b = -2.0 * tr_B**2 + tr_adj_S - np.dot(z.T, z)[0,0]
     d = linalg.det(K)

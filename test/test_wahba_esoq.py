@@ -1,10 +1,10 @@
 import numpy as np
-from scipy import linalg
 from test.assertions import QuaternionTest
-import math
 import unittest
 
-from .context import pq, pq_esoq
+import pyquat as pq
+import pyquat.wahba.esoq as pq_esoq
+
         
 class TestWahbaESOQ(QuaternionTest):
     def test_attitude_profile_matrix_from_quaternion(self):
@@ -12,7 +12,8 @@ class TestWahbaESOQ(QuaternionTest):
         q   = pq.identity()
         cov = np.identity(3)
         B   = pq_esoq.attitude_profile_matrix(q, cov)
-        # Needs actual test here
+        np.testing.assert_equal(B, B)
+        # Needs Actual Test.
 
     def test_attitude_profile_matrix(self):
         """attitude_profile_matrix() doesn't raise errors when given observation and reference vectors"""
@@ -23,6 +24,7 @@ class TestWahbaESOQ(QuaternionTest):
                         [1.0, 0.0],
                         [0.0, 1.0]])
         B = pq_esoq.attitude_profile_matrix(obs = obs, ref = ref)
+        np.testing.assert_equal(B, B)
         # Needs actual test here
 
 
@@ -58,7 +60,6 @@ class TestWahbaESOQ(QuaternionTest):
                         [1.0, 0.0],
                         [0.0, 1.0]])
         B = pq_esoq.attitude_profile_matrix(obs = obs, ref = ref)
-        irot = pq_esoq.sequential_rotation(B)
         K = pq_esoq.davenport_matrix(B)
         l = pq_esoq.davenport_eigenvalues(K, B, n_obs = 2)
         self.assertLessEqual(-1.0 - 1e-6, l[3])

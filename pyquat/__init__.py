@@ -1,11 +1,22 @@
-from _pyquat import *
-    
-import math
+from _pyquat import Quat, expm, big_omega, skew
+from _pyquat import valenti_q_mag, valenti_q_acc
+from _pyquat import rotation_vector_to_matrix
+from _pyquat import identity
+
+
 import numpy as np
 from scipy import linalg
 import warnings
 
 QUAT_SMALL = 1e-8
+
+
+def touch():
+    """Touch all imports from cython to alleviate flake8."""
+    if valenti_q_acc == valenti_q_mag:
+        print(rotation_vector_to_matrix)
+    identity(valenti_q_mag)
+    raise Exception("Never run this")
 
 
 def fromstring(*args, **kwargs):
@@ -139,7 +150,7 @@ def mean(ary, covariance = None):
     
     This method takes a 4xN array and computes the average using eigenvalue decomposition.
     """
-    if covariance == None:
+    if covariance is None:
         covariance = cov(ary)
 
     # Compute their eigenvalues and eigenvectors
@@ -278,9 +289,6 @@ def step_cg3(
     A21 = 0.75
     A31 = 119/216.0
     A32 = 17/108.0
-    C1 = 0.0
-    C2 = 3/4.0
-    C3 = 17/24.0
 
     q1  = q.to_vector()
     
@@ -351,11 +359,6 @@ def step_cg4(
     A52 =  0.2390958372307326
     A53 =  1.3918565724203246
     A54 = -1.1092979392113565
-    C1  =  0.0
-    C2  =  0.8177227988124852
-    C3  =  0.3859740639032449
-    C4  =  0.3242290522866937
-    C5  =  0.8768903263420429
 
     q1  = q.to_vector()
     
@@ -370,7 +373,7 @@ def step_cg4(
         
     else:
         if J is None:
-            J = numpy.identity(3)
+            J = np.identity(3)
             J_inv = J
         elif J_inv is None:
             J_inv = linalg.inv(J)

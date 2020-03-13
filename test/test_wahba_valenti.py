@@ -1,11 +1,7 @@
 import numpy as np
-from scipy import linalg
-import pyquat as pq
-from pyquat import Quat
 import pyquat.wahba.valenti as pqv
 import pyquat.random as pqr
 from test.assertions import QuaternionTest
-import math
 import unittest
         
 class TestWahbaValenti(QuaternionTest):
@@ -19,7 +15,7 @@ class TestWahbaValenti(QuaternionTest):
             a1 = q.rotate(d)
             np.testing.assert_almost_equal(a0, a1, decimal=13)
 
-            q  = pqv.dq_acc(a0)
+            q  = pqv.q_acc(a0)
             a1 = q.rotate(d)
             np.testing.assert_almost_equal(a0, a1, decimal=13)
 
@@ -36,7 +32,7 @@ class TestWahbaValenti(QuaternionTest):
             l  = qa.conjugated().rotate(b)
             qm = pqv.q_mag(l)
 
-            dqm = pqv.dq_mag(l)
+            dqm = pqv.q_mag(l)
 
             # Test that qm is about-z only
             self.assertEqual(qm.x, 0.0)
@@ -47,7 +43,7 @@ class TestWahbaValenti(QuaternionTest):
             self.assertEqual(dqm.y, 0.0)
         
             q_G_to_L  = qa * qm
-            q_L_to_G  = q_G_to_L.conjugated()
+            # q_L_to_G  = q_G_to_L.conjugated()
 
             # Test that q_G_to_L still points gravity at a measurement
             # (really actually unnecessary since qm is about-z only)

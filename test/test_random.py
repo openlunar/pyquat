@@ -1,10 +1,10 @@
 import numpy as np
 from test.assertions import QuaternionTest
-import math
 import unittest
 from scipy import linalg
 
-from .context import pq, pqr
+import pyquat as pq
+import pyquat.random as pqr
 
 class TestRandom(QuaternionTest):
     def test_uniform_random_axis(self):

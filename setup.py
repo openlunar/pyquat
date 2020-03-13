@@ -4,23 +4,22 @@ See:
 https://github.com/mohawkjohn/pyquat
 """
 
-from setuptools import setup, find_packages
+from setuptools import setup
 from setuptools.extension import Extension
-import os
 import numpy
 
 MAJOR = 0
 MINOR = 3
-TINY  = 3
-version='%d.%d.%d' % (MAJOR, MINOR, TINY)
+TINY = 3
+version = '%d.%d.%d' % (MAJOR, MINOR, TINY)
 
 c_quat = Extension('_pyquat',
                    ['pyquat/pyquat.c'],
-                   extra_compile_args = ["-std=c99"],
-                   include_dirs  = [numpy.get_include()],
-                   define_macros = [('MAJOR_VERSION', MAJOR),
-                                    ('MINOR_VERSION', MINOR),
-                                    ('TINY_VERSION',  TINY)])
+                   extra_compile_args=["-std=c99"],
+                   include_dirs=[numpy.get_include()],
+                   define_macros=[('MAJOR_VERSION', MAJOR),
+                                  ('MINOR_VERSION', MINOR),
+                                  ('TINY_VERSION', TINY)])
 setup(name='pyquat',
       version=version,
       description='Python C quaternion type for fast attitude and rotation computations',

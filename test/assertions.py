@@ -2,8 +2,9 @@ import unittest
 import numpy as np
 import math
 
-from .context import pq
-from .context import pq_esoq
+
+import pyquat.wahba.esoq as pq_esoq
+import pyquat as pq
 
 class QuaternionTest(unittest.TestCase):
     def assert_almost_equal_components(self, q1, q2, **kwargs):
